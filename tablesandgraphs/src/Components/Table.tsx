@@ -1,6 +1,6 @@
 import DataTable from "react-data-table-component";
 import "../Layout/Table.css"; // Voor extra algemene stijlen
-import { TableStyles } from "react-data-table-component";
+import { useState } from "react";
 
 interface Row {
   id: number;
@@ -10,7 +10,7 @@ interface Row {
 }
 
 function Table() {
-  const rows: Row[] = [
+  const initialRows: Row[] = [
     { id: 1, Jaar: 2015, Winst: 4000, Verlies: 1500 },
     { id: 2, Jaar: 2016, Winst: 5000, Verlies: 2000 },
     { id: 3, Jaar: 2017, Winst: 7000, Verlies: 3000 },
@@ -22,6 +22,21 @@ function Table() {
     { id: 9, Jaar: 2023, Winst: 12000, Verlies: 5500 },
     { id: 10, Jaar: 2024, Winst: 13000, Verlies: 6000 },
   ];
+  const [rows, setRows] = useState(initialRows);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    rowId: number,
+    column: string
+  ) => {
+    const newRows = rows.map((row) => {
+      if (row.id === rowId) {
+        return { ...row, [column]: e.target.value }; // Update de specifieke waarde
+      }
+      return row;
+    });
+    setRows(newRows); // Update de staat van de rijen
+  };
 
   const columns = [
     {
@@ -30,11 +45,25 @@ function Table() {
     },
     {
       name: "Winst",
-      selector: (row: Row) => row.Winst,
+      cell: (row: Row) => (
+        <input
+          type="number"
+          value={row.Winst}
+          onChange={(e) => handleInputChange(e, row.id, "Winst")}
+          className="editable-cell"
+        />
+      ),
     },
     {
       name: "Verlies",
-      selector: (row: Row) => row.Verlies,
+      cell: (row: Row) => (
+        <input
+          type="number"
+          value={row.Verlies}
+          onChange={(e) => handleInputChange(e, row.id, "Verlies")}
+          className="editable-cell"
+        />
+      ),
     },
   ];
 
