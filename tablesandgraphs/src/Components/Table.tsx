@@ -1,4 +1,4 @@
-import DataTable from "react-data-import-component";
+import DataTable from "react-data-table-component";
 import "../Layout/Table.css"; // Voor extra algemene stijlen
 import { useState } from "react";
 

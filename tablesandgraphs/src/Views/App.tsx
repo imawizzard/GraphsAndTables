@@ -1,14 +1,12 @@
-  import "../Layout/App.css";
-  import Table from "../Components/Table";
-  import Graph from "../Components/Graph";
+import "../Layout/App.css";
+import Table from "../Components/Table";
 
-  function App() {
-    return (
-      <div className="App">
-        <Table />
-        <Graph />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Table />
+    </div>
+  );
+}
 
-  export default App;
+export default App;
